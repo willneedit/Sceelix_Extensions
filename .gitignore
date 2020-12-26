@@ -1,0 +1,6 @@
+/.vs
+/bin
+/obj
+
+# Assemblies are symlinked from <path to Steam Library>/steamapps/common/Sceelix/Bin
+Assemblies
