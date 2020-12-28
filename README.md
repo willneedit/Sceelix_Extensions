@@ -1,4 +1,4 @@
-These are some (okay, one at the moment) extensions I did for the Sceelix Procedural Geometry Generator, available for free on Steam.
+These are some extensions I did for the Sceelix Procedural Geometry Generator, available for free on Steam.
 
 ## Compilation
 
@@ -19,3 +19,7 @@ This node takes the UV coordinates of the vertices of a given mesh and translate
 Whereas the node "Mesh UV" would always create UV coordinates within the range of (0,0)..(1,1), unless scaled, this node relocates them to a different coordinate space.
 
 This is particularly useful if you have a texture containing a set of different images and the face of the mesh should display only one of them rather than all of them. Most common example would be a texture containing a whole charset and picking out specific letters.
+
+### Unity Entity Group Create
+
+An amalgamation of "Actor Group" and "Unity Entity Create". Groups several actors (including other Unity Entities and Groups) together and decorates them with a meaningful name and attributes as seen in "Unity Entity Create"
