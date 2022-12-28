@@ -31,40 +31,45 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+      <HintPathRoot Condition="Exists('\Program Files (x86)\Steam\steamapps\common\Sceelix\Bin')">\Program Files (x86)\Steam\steamapps\common\Sceelix\Bin</HintPathRoot>
+      <HintPathRoot Condition="Exists('\SteamLibrary\steamapps\common\Sceelix\Bin')">\SteamLibrary\steamapps\common\Sceelix\Bin</HintPathRoot>
+      <HintPathRoot Condition="Exists('Assemblies')">Assemblies</HintPathRoot>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>Assemblies\Newtonsoft.Json.dll</HintPath>
+      <HintPath>$(HintPathRoot)\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="Sceelix">
-      <HintPath>Assemblies\Sceelix.dll</HintPath>
+      <HintPath>$(HintPathRoot)\Sceelix.dll</HintPath>
     </Reference>
     <Reference Include="Sceelix.Actors, Version=0.8.4.2, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>Assemblies\Sceelix.Actors.dll</HintPath>
+      <HintPath>$(HintPathRoot)\Sceelix.Actors.dll</HintPath>
     </Reference>
     <Reference Include="Sceelix.Core">
-      <HintPath>Assemblies\Sceelix.Core.dll</HintPath>
+      <HintPath>$(HintPathRoot)\Sceelix.Core.dll</HintPath>
     </Reference>
     <Reference Include="Sceelix.Mathematics, Version=0.8.4.2, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>Assemblies\Sceelix.Mathematics.dll</HintPath>
+      <HintPath>$(HintPathRoot)\Sceelix.Mathematics.dll</HintPath>
     </Reference>
     <Reference Include="Sceelix.Meshes, Version=0.8.4.2, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>Assemblies\Sceelix.Meshes.dll</HintPath>
+      <HintPath>$(HintPathRoot)\Sceelix.Meshes.dll</HintPath>
     </Reference>
     <Reference Include="Sceelix.Paths, Version=0.7.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>Assemblies\Sceelix.Paths.dll</HintPath>
+      <HintPath>$(HintPathRoot)\Sceelix.Paths.dll</HintPath>
     </Reference>
     <Reference Include="Sceelix.Surfaces, Version=0.7.3.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>Assemblies\Sceelix.Surfaces.dll</HintPath>
+      <HintPath>$(HintPathRoot)\Sceelix.Surfaces.dll</HintPath>
     </Reference>
     <Reference Include="Sceelix.Unity, Version=0.8.7.1, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>Assemblies\Sceelix.Unity.dll</HintPath>
+      <HintPath>$(HintPathRoot)\Sceelix.Unity.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />

@@ -2,8 +2,9 @@ These are some extensions I did for the Sceelix Procedural Geometry Generator, a
 
 ## Compilation
 
-* Link (or copy) the 'Bin' folder of your Sceelix installation (usu. in <path to Steam Library>\steamapps\common\Sceelix\Bin) into this folder, rename it to "Assemblies". Otherwise you can edit the Reference paths in the project file to point towards the correct location.
-* Compile the library using Visual Studio. Tested fine with VS2019 Community Edition.
+* If you've installed Sceelix from Steam, compiling it by Visual Studio 2019 or newer or by Visual Studio Code (with C# addon) would just fine.
+* If you've installed Sceelix in a non-standard 'well-known' location, link (or copy) the 'Bin' folder of your Sceelix installation (usu. in <path to Steam Library>\steamapps\common\Sceelix\Bin) into this folder, rename it to "Assemblies".
+* Otherwise you can edit the Reference paths in the project file to point towards the correct location - look at the .csproj file, line 35f.
 
 ## Installation
 
