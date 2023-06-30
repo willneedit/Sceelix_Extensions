@@ -1,0 +1,3 @@
+[submodule "Extern/Net3dBool"]
+	path = Extern/Net3dBool
+	url = git@github.com:willneedit/Net3dBool.git
