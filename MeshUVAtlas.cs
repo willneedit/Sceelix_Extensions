@@ -15,7 +15,7 @@ namespace Sceelix.MyNewEngineLibrary
     /// Example: Texture is a charset in a grid pattern, to have the mesh display an individual letter.
     /// </summary>
     [Procedure("8034DF9C-9104-453D-B249-B06D9073AC30", Label = "Mesh UV Atlas")]
-    public class MeshToPathExampleProcedure : SystemProcedure
+    public class MeshUVAtlas : SystemProcedure
     {
         private readonly SingleInput<MeshEntity> _input = new SingleInput<MeshEntity>("Input");
         private readonly Output<MeshEntity> _output = new Output<MeshEntity>("Output");
