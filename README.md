@@ -21,6 +21,11 @@ Whereas the node "Mesh UV" would always create UV coordinates within the range o
 
 This is particularly useful if you have a texture containing a set of different images and the face of the mesh should display only one of them rather than all of them. Most common example would be a texture containing a whole charset and picking out specific letters.
 
+### Mesh Boolean
+
+Perform boolean operations (Intersection, Union or Difference) of two meshes, an extension of the Boolean operation in Sceelix for 3D meshes, not just coplanar faces. Useful to produce cutouts or combination of meshes.
+Input meshes' normals can be flipped as the 'negation' before or after of the intended operation, or to treat the meshes as 'outside' or 'inside'.
+
 ### Unity Entity Group Create
 
 An amalgamation of "Actor Group" and "Unity Entity Create". Groups several actors (including other Unity Entities and Groups) together and decorates them with a meaningful name and attributes as seen in "Unity Entity Create"
