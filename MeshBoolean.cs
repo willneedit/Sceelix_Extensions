@@ -42,20 +42,34 @@ namespace Sceelix.MyNewEngineLibrary
         {
             solid = null;
 
-            foreach(Face face in mesh.Faces) 
+            // Triangulate (simple): Convert nGons into triangle fans
+            List<Face> tris = new List<Face>();
+            foreach(Face face in mesh.Faces)
             {
-                if(face.Vertices.Count() != 3)
+                if(face.Vertices.Count() < 3)
                 {
-                    Logger.Log($"{desc} needs to be a triangulated mesh, use 'Mesh Triangulate'.", Logging.LogType.Error);
-                    return false;
+                    Logger.Log($"{desc} - degenerated faces, skipping.", Logging.LogType.Warning);
+                    continue;
+                }
+
+                Vertex[] verts = face.Vertices.ToArray();
+
+                for(int i0 = 2; i0 < face.Vertices.Count(); ++i0)
+                {
+                    tris.Add(new Face(new Vertex[3]
+                    {
+                        verts[0],
+                        verts[i0 - 1],
+                        verts[i0]
+                    }));
                 }
             }
 
-            int[] vertIndices = new int[mesh.Faces.Count() * 3];
-            Net3dBool.Vector3d[] vertices = new Net3dBool.Vector3d[mesh.Faces.Count() * 3];
+            int[] vertIndices = new int[tris.Count() * 3];
+            Net3dBool.Vector3d[] vertices = new Net3dBool.Vector3d[tris.Count() * 3];
 
             int i = 0;
-            foreach(Face face in mesh.Faces)
+            foreach(Face face in tris)
             {
                 Vertex[] verts = face.Vertices.ToArray();
 
