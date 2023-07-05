@@ -38,12 +38,37 @@ namespace Sceelix.MyNewEngineLibrary
             "Difference"
         });
 
+        private int FindOrAddVert(Vertex vert, List<Net3dBool.Vector3d> vertList, List<int> vertIndices)
+        {
+            Net3dBool.Vector3d v = new Net3dBool.Vector3d(vert.Position.X, vert.Position.Y, vert.Position.Z);
+
+            int found = -1;
+            for(int i = 0, c = vertList.Count; i < c; ++i)
+                if(vertList[i] == v)
+                {
+                    found = i;
+                    break;
+                }
+
+            if(found < 0)
+            {
+                found = vertList.Count();
+                vertList.Add(v);
+            }
+
+            vertIndices.Add(found);
+            return found;
+        }
+
         private bool ConvertN3dSolid(MeshEntity mesh, bool flip, string desc, out Net3dBool.Solid solid)
         {
             solid = null;
 
             // Triangulate (simple): Convert nGons into triangle fans
             List<Face> tris = new List<Face>();
+            List<Net3dBool.Vector3d> vertList = new List<Net3dBool.Vector3d>();
+            List<int> vertIndices = new List<int>();
+
             foreach(Face face in mesh.Faces)
             {
                 if(face.Vertices.Count() < 3)
@@ -65,39 +90,29 @@ namespace Sceelix.MyNewEngineLibrary
                 }
             }
 
-            int[] vertIndices = new int[tris.Count() * 3];
-            Net3dBool.Vector3d[] vertices = new Net3dBool.Vector3d[tris.Count() * 3];
-
-            int i = 0;
             foreach(Face face in tris)
             {
                 Vertex[] verts = face.Vertices.ToArray();
 
-                if(!flip)
+                if(flip)
                 {
-                    vertIndices[i] = i + 2;
-                    vertIndices[i + 2] = i;
+                    FindOrAddVert(verts[0], vertList, vertIndices);
+                    FindOrAddVert(verts[1], vertList, vertIndices);
+                    FindOrAddVert(verts[2], vertList, vertIndices);
                 }
                 else
                 {
-                    vertIndices[i] = i;
-                    vertIndices[i + 2] = i + 2;
+                    FindOrAddVert(verts[2], vertList, vertIndices);
+                    FindOrAddVert(verts[1], vertList, vertIndices);
+                    FindOrAddVert(verts[0], vertList, vertIndices);
                 }
-
-                vertIndices[i+1] = i+1;
-
-                vertices[i  ] = new Net3dBool.Vector3d(verts[0].Position.X, verts[0].Position.Y, verts[0].Position.Z);
-                vertices[i+1] = new Net3dBool.Vector3d(verts[1].Position.X, verts[1].Position.Y, verts[1].Position.Z);
-                vertices[i+2] = new Net3dBool.Vector3d(verts[2].Position.X, verts[2].Position.Y, verts[2].Position.Z);
-
-                i += 3;
             }
 
-            solid = new Net3dBool.Solid(vertices, vertIndices);
+            solid = new Net3dBool.Solid(vertList.ToArray(), vertIndices.ToArray());
             return true;
         }
 
-        private Vector3D ToVertex(Net3dBool.Vector3d v3)
+        private Vector3D ToVector3D(Net3dBool.Vector3d v3)
         {
             return new Vector3D((float) v3.X, (float) v3.Y, (float) v3.Z);
         }
@@ -109,25 +124,32 @@ namespace Sceelix.MyNewEngineLibrary
 
             List<Face> faces = new List<Face>();
 
-            for(int i = 0, c = indices.Length; i < c; i += 3)
+
+            int maxIndex = indices.Max() + 1;
+
+            Vertex[] vertices = new Vertex[maxIndex];
+            for(int i1 = 0; i1 < maxIndex; ++i1)
+                vertices[i1] = new Vertex(ToVector3D(verts[i1]));
+
+            for(int i2 = 0, c = indices.Length; i2 < c; i2 += 3)
             {
-                Vector3D[] facepos = null;
+                Vertex[] facepos = null;
                 if(_flipOut.Value)
                 {
-                    facepos = new Vector3D[]
+                    facepos = new Vertex[]
                     {
-                        ToVertex(verts[indices[i]]),
-                        ToVertex(verts[indices[i + 1]]),
-                        ToVertex(verts[indices[i + 2]]),
+                        vertices[indices[i2]],
+                        vertices[indices[i2 + 1]],
+                        vertices[indices[i2 + 2]],
                     };
                 }
                 else 
                 {
-                    facepos = new Vector3D[]
+                    facepos = new Vertex[]
                     {
-                        ToVertex(verts[indices[i + 2]]),
-                        ToVertex(verts[indices[i + 1]]),
-                        ToVertex(verts[indices[i]]),
+                        vertices[indices[i2 + 2]],
+                        vertices[indices[i2 + 1]],
+                        vertices[indices[i2]],
                     };
                 }
 
