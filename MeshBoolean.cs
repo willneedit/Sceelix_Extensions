@@ -5,6 +5,7 @@ using Sceelix.Core.Attributes;
 using Sceelix.Core.IO;
 using Sceelix.Core.Parameters;
 using Sceelix.Core.Procedures;
+using Sceelix.Extensions;
 using Sceelix.Mathematics.Data;
 using Sceelix.Meshes.Data;
 using Sceelix.Paths.Data;
@@ -70,25 +71,7 @@ namespace Sceelix.MyNewEngineLibrary
             List<int> vertIndices = new List<int>();
 
             foreach(Face face in mesh.Faces)
-            {
-                if(face.Vertices.Count() < 3)
-                {
-                    Logger.Log($"{desc} - degenerated faces, skipping.", Logging.LogType.Warning);
-                    continue;
-                }
-
-                Vertex[] verts = face.Vertices.ToArray();
-
-                for(int i0 = 2; i0 < face.Vertices.Count(); ++i0)
-                {
-                    tris.Add(new Face(new Vertex[3]
-                    {
-                        verts[0],
-                        verts[i0 - 1],
-                        verts[i0]
-                    }));
-                }
-            }
+                Tessellation.TriangleFan(face, tris);
 
             foreach(Face face in tris)
             {
@@ -187,6 +170,10 @@ namespace Sceelix.MyNewEngineLibrary
             AssembleMeshEntity(result, out MeshEntity output);
 
             //finally, return the newly create meshEntity
+
+            meshEntityA.Attributes.SetAttributesTo(output.Attributes);
+            meshEntityB.Attributes.SetAttributesTo(output.Attributes);
+
             _output.Write(output);
         }
     }
