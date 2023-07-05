@@ -95,6 +95,7 @@
     <Compile Include="Extern\Net3dBool\src\Net3dBool\Geometry\Vertex.cs" />
     <Compile Include="Extern\Net3dBool\src\Net3dBool\solids\DefaultCoordinates.cs" />
     <Compile Include="MeshBoolean.cs" />
+    <Compile Include="MeshDistortion.cs" />
     <Compile Include="MeshTessellate.cs" />
     <Compile Include="MeshUVAtlas.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
