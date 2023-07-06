@@ -8,6 +8,7 @@ using Sceelix.Core.Procedures;
 using Sceelix.Extensions;
 using Sceelix.Mathematics.Data;
 using Sceelix.Meshes.Data;
+using Sceelix.Meshes.Procedures;
 using Sceelix.Paths.Data;
 
 
@@ -173,6 +174,9 @@ namespace Sceelix.MyNewEngineLibrary
 
             meshEntityA.Attributes.SetAttributesTo(output.Attributes);
             meshEntityB.Attributes.SetAttributesTo(output.Attributes);
+
+            // And, weld the vertices of adjacent faces.
+            MeshUnifyProcedure.UnifyVerticesParameter.Unify(output);
 
             _output.Write(output);
         }

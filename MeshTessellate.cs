@@ -8,6 +8,7 @@ using Sceelix.Core.Procedures;
 using Sceelix.Extensions;
 using Sceelix.Mathematics.Data;
 using Sceelix.Meshes.Data;
+using Sceelix.Meshes.Procedures;
 using Sceelix.Paths.Data;
 
 
@@ -55,6 +56,9 @@ namespace Sceelix.MyNewEngineLibrary
                 }
 
             MeshEntity output = new MeshEntity(tris.ToArray());
+
+            // And, weld the vertices of adjacent faces.
+            MeshUnifyProcedure.UnifyVerticesParameter.Unify(output);
 
             meshEntityA.Attributes.SetAttributesTo(output.Attributes);
             //finally, return the newly create meshEntity
